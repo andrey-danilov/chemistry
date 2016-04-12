@@ -1,5 +1,8 @@
 package com.company;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.Object;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,34 +12,59 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.lang.NullPointerException;
 import java.io.PrintWriter;
+import java.io.*;
+import javax.swing.*;
 
 
 
 
 public class Main {
-    static Abstract MAINARRAYELEMENTS[];
 
-
-    static String input = new String("Na+H2O=");
 
     public static void main(String[] args) {
-      // System.out.println("first");
-      // Scanner in = new Scanner(System.in);
-      // String first = in.nextLine();
-      // System.out.println("first = " + first);
 
-     //  System.out.println("second");
-      // String second = in.nextLine();
-      // System.out.println("second = " + second);
+        JFrame frame = new JFrame("FrameDemo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 300);
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        JButton craete = new JButton("craete");
+        Label rez = new Label();
 
-//double[][] a={{1,0,1,0},{0,2,1,2},{0,1,1,0}};
+        JTextField first = new JTextField(5);
+        JTextField second = new JTextField(10);
+        panel.add(first);
+        panel.add(second);
+        panel.add(craete);
+        panel.add(rez);
 
-int[] a = {2,1};
-        int[] b={1,2,2,2};
-        for(int i=0;i<4; i++)
-        System.out.println(Material.keof2(a, b)[i]);
+        frame.getContentPane().add(panel);
 
+        frame.setVisible(true);
+
+        craete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String firstInput = first.getText();
+                String secondInput = second.getText();
+                Metals tempMetal= Search.findelMetals(firstInput);
+                Material tempMaterial=Search.findelMaterial(secondInput);
+                Non_metals tempNon_metal=Search.findelNon_metals(secondInput);
+
+                if(tempMaterial!=null)
+                {
+                    rez.setText(Search.bild(tempMetal, tempMaterial));
+                }
+                else {
+                   //rez.setText(Search.bild(tempMetal,tempNon_metal));
+                }
+
+
+
+            }
+        });
+
+
+        }
     }
 
-
-}

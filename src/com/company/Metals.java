@@ -36,7 +36,7 @@ public class Metals extends Abstract{
             arrayMetals[i].itsName=nameThirdValence[k];
             arrayMetals[i].itsValence=3;
         }
-        for (int i=0; i<55 ; i++)
+        for (int i=0; i< number.length; i++)
         {
             arrayMetals[i].itsNumber=number[i];
         }
