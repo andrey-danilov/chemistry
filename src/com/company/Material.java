@@ -2,7 +2,7 @@ package com.company;
 public class Material extends Abstract{
 
     String MetalResidue;
-    String Residue = "H";
+    String Residue;
     int quantityOxidant;
     int quantityReductant;
     int quantityResidue = 2;

@@ -25,7 +25,7 @@ public class Main {
 
         JFrame frame = new JFrame("FrameDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 300);
+        frame.setSize(700, 300);
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         JButton craete = new JButton("craete");
@@ -47,16 +47,17 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 String firstInput = first.getText();
                 String secondInput = second.getText();
-                Metals tempMetal= Search.findelMetals(firstInput);
-                Material tempMaterial=Search.findelMaterial(secondInput);
-                Non_metals tempNon_metal=Search.findelNon_metals(secondInput);
+                Metals tempMetal= Search.findeMetals(firstInput);
+                Material tempMaterial=Search.findeMaterial(secondInput);
+                Non_metals tempNon_metal=Search.findeNon_metals(secondInput);
 
                 if(tempMaterial!=null)
                 {
                     rez.setText(Search.bild(tempMetal, tempMaterial));
                 }
                 else {
-                   //rez.setText(Search.bild(tempMetal,tempNon_metal));
+                    System.out.print(Search.bild(tempMetal,tempNon_metal));
+                   rez.setText(Search.bild(tempMetal,tempNon_metal));
                 }
 
 

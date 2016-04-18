@@ -12,7 +12,7 @@ public class Search {
 
 
 
-    public static Metals findelMetals(String input){
+    public static Metals findeMetals(String input){
         for(int i=0;i<metals.length-1; i++){
             if (input.equals(metals[i].itsName)) return metals[i];
         }
@@ -22,27 +22,38 @@ public class Search {
 
 
 
-    public static Material findelMaterial(String input){
+    public static Material findeMaterial(String input){
+        Material temp= null;
         for(int i=0;i<materials.length-1; i++){
-            if (input.equals(materials[i].itsName))return materials[i];
+            if (input.equals(materials[i].itsName))temp=materials[i];
         }
-        return null;
+        temp.Residue = input.substring(0,1);
+
+        if (input.substring(1).matches("[-+]?\\d+")){
+
+            temp.quantityReductant=Integer.parseInt(input.substring(1));
+            return temp;
+        }
+
+        return temp;
     }
 
 
 
-    public static Non_metals findelNon_metals(String input){
-
-        for(int i=0;i<non_metal.length-1; i++){
+    public static Non_metals findeNon_metals(String input){
+        Non_metals temp = null;
+        for(int i=0;i<non_metal.length; i++){
             if (input.substring(0, input.length()-1).equals(non_metal[i].itsName)){
-                if (input.substring(input.length()-1).matches("[-+]?\\d+")){
-                    non_metal[i].quantityNon_metal=Integer.parseInt(input.substring(input.length()-1));
-                    return non_metal[i];
-                }
+                temp=non_metal[i];
             }
         }
+        if (input.substring(input.length()-1).matches("[-+]?\\d+")){
+
+            temp.quantityNon_metal=Integer.parseInt(input.substring(input.length()-1));
+            return temp;
+        }
         return null;
-    };
+    }
     public static int gcd(int a,int b){
         return b == 0 ? a : gcd(b,a % b);
     }
@@ -89,7 +100,7 @@ public class Search {
 
         out=before+after;
 
-        return out;
+        return out.replaceAll("1","");
     }
 
 }
