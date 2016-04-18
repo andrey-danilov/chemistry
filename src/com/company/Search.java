@@ -6,6 +6,7 @@ import java.io.*;
 public class Search {
     public static Metals[] metals = Metals.createMetals();
     public static  Material[] materials = Material.createMaterial();
+
     public static  Non_metals[] non_metal = Non_metals.createNon_metals();
 
 
@@ -24,43 +25,40 @@ public class Search {
 
     public static Material findeMaterial(String input){
        Material temp= null;
-        for(int i=0;i<materials.length-1; i++){
+        for(int i=0;i<materials.length; i++){
             if (input.equals(materials[i].itsName))temp=materials[i];
         }
         int n=0;
         if (input.substring(n, n + 1).equals(non_metal[0].itsName)) {
             temp.Residue =input.substring(n, n + 1) ;
-            input.replaceAll(temp.Residue,"");
+            input= input.replaceAll(input.substring(n, n + 1), "");
+
         }
-        if(input.substring(n).matches("[-+]?\\d+")){
-            temp.quantityReductant=Integer.parseInt(input.substring(1));
+
+        if(input.substring(n,n+1).matches("[-+]?\\d+")){
+            temp.quantityReductant=Integer.parseInt(input.substring(n, n + 1));
+            input= input.replaceAll(input.substring(n,n+1), "");
         }
         else{
             temp.quantityReductant=1;
         }
-        /*
-        for(int i=0; i<non_metal.length;i++){
-            if(input.substring(n,n+1).equals(non_metal[i].itsName)){
-                temp.MetalResidue=input.substring(n,n+1);
-                n+=1;
-            }
-            else if(input.substring(n,n+1).equals(non_metal[i].itsName)&& input.substring(n+1,n+2).equals(non_metal[i].itsName)){
-                temp.MetalResidue=input.substring(n,n+2);
-                n+=2;
-            }
-        }*/
-        if (input.substring(n).matches("[-+]?\\d+"))
+
+        if (input.substring(input.length()-1).matches("[-+]?\\d+"))
         {
-            temp.quantityOxidant=Integer.parseInt(input.substring(n));
+            temp.quantityOxidant=Integer.parseInt(input.substring(input.length()-1));
+            input=input.replaceAll(input.substring(input.length() - 1), "");
+            temp.MetalResidue=input;
         }
         else{
             temp.quantityOxidant=1;
+            temp.MetalResidue=input;
         }
+        if(temp.itsName.equals("H2O"))temp.MetalResidue="OH";
 
-        System.out.println(temp.Residue);
+        /*System.out.println(temp.Residue);
         System.out.println(temp.quantityReductant);
         System.out.println(temp.MetalResidue);
-        System.out.println(temp.quantityOxidant);
+        System.out.println(temp.quantityOxidant);*/
         return temp;
     }
 
@@ -97,11 +95,12 @@ public class Search {
         int y1 = temp/material.itsValence;
         int A1 = temp = NOK(y1,material.quantityResidue);
         int A2 = temp/y1;
-        int A3 = temp/material.quantityResidue;
+        int A3 = temp/2;
         int A0 = A2*x1;
 
+
         before=A0+metal.itsName+" + "+A1+material.itsName+" = ";
-        after=A2+metal.itsName +x1 + material.MetalResidue +y1 +"+" +A3+
+        after=A2+metal.itsName +x1 + material.MetalResidue + material.quantityOxidant +y1 +"+" +A3+
                 material.Residue + material.quantityResidue;
 
         out=before+after;

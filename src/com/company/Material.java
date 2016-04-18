@@ -5,12 +5,12 @@ public class Material extends Abstract{
     String Residue;
     int quantityOxidant;
     int quantityReductant;
-    int quantityResidue = 2;
+    int quantityResidue=2;
 
    public static Material[] createMaterial(){
-       Material[] arrayMaterial = new Material[4];
+       Material[] arrayMaterial = new Material[5];
        String[] nameFirstValence = {"HCl","HBr", "HI"};
-       String[] nameSecondValence = {"H2O"};
+       String[] nameSecondValence = {"H2O" ,"H2CO3"};
        String[] namesMetalResidue={"Cl", "OH"};
 
        int[] quantitiesOxidant={1,1};
@@ -23,7 +23,7 @@ public class Material extends Abstract{
            arrayMaterial[i].itsName=nameFirstValence[i];
 
        }
-       for (int i = 1 ; i< nameSecondValence.length; i++, j++) {
+       for (int i = nameFirstValence.length ; i< arrayMaterial.length; i++, j++) {
            arrayMaterial[i] = new Material();
            arrayMaterial[i].itsValence=2;
            arrayMaterial[i].itsName=nameSecondValence[j];
