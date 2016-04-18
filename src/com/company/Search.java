@@ -23,35 +23,32 @@ public class Search {
 
 
     public static Material findeMaterial(String input){
-        Material temp= null;
+       Material temp= null;
         for(int i=0;i<materials.length-1; i++){
             if (input.equals(materials[i].itsName))temp=materials[i];
         }
         int n=0;
         if (input.substring(n, n + 1).equals(non_metal[0].itsName)) {
             temp.Residue =input.substring(n, n + 1) ;
-            n+=1;
-
+            input.replaceAll(temp.Residue,"");
         }
         if(input.substring(n).matches("[-+]?\\d+")){
             temp.quantityReductant=Integer.parseInt(input.substring(1));
-            n+=1;
         }
         else{
             temp.quantityReductant=1;
-            n+=1;
         }
-
+        /*
         for(int i=0; i<non_metal.length;i++){
-            if(input.substring(n,n+1).equals(non_metal[i].itsName)&& input.substring(n+1,n+2).equals(non_metal[i].itsName)){
-                temp.MetalResidue=input.substring(n,n+2);
-                n+=2;
-            }
-            else if(input.substring(n,n+1).equals(non_metal[i].itsName)){
+            if(input.substring(n,n+1).equals(non_metal[i].itsName)){
                 temp.MetalResidue=input.substring(n,n+1);
                 n+=1;
             }
-        }
+            else if(input.substring(n,n+1).equals(non_metal[i].itsName)&& input.substring(n+1,n+2).equals(non_metal[i].itsName)){
+                temp.MetalResidue=input.substring(n,n+2);
+                n+=2;
+            }
+        }*/
         if (input.substring(n).matches("[-+]?\\d+"))
         {
             temp.quantityOxidant=Integer.parseInt(input.substring(n));
@@ -60,10 +57,10 @@ public class Search {
             temp.quantityOxidant=1;
         }
 
-        System.out.print(temp.Residue);
-        System.out.print(temp.quantityReductant);
-        System.out.print(temp.MetalResidue);
-        System.out.print(temp.quantityOxidant);
+        System.out.println(temp.Residue);
+        System.out.println(temp.quantityReductant);
+        System.out.println(temp.MetalResidue);
+        System.out.println(temp.quantityOxidant);
         return temp;
     }
 

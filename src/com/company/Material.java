@@ -8,8 +8,8 @@ public class Material extends Abstract{
     int quantityResidue = 2;
 
    public static Material[] createMaterial(){
-       Material[] arrayMaterial = new Material[2];
-       String[] nameFirstValence = {"HCl"};
+       Material[] arrayMaterial = new Material[4];
+       String[] nameFirstValence = {"HCl","HBr", "HI"};
        String[] nameSecondValence = {"H2O"};
        String[] namesMetalResidue={"Cl", "OH"};
 
@@ -28,11 +28,11 @@ public class Material extends Abstract{
            arrayMaterial[i].itsValence=2;
            arrayMaterial[i].itsName=nameSecondValence[j];
        }
-       for (int i = 0 ; i< 1; i++) { //Ќ”жно поставить величину
+       /*for (int i = 0 ; i< 1; i++) { //Ќ”жно поставить величину
            arrayMaterial[i].MetalResidue = namesMetalResidue[i];
            arrayMaterial[i].quantityOxidant=quantitiesOxidant[i];
            arrayMaterial[i].quantityReductant=quantitiesReductant[i];
-       }
+       }*/
 
        return arrayMaterial;
     }
