@@ -5,7 +5,7 @@ package com.company;
  */
 public class Non_metals extends Abstract {
 
-    int quantityNon_metal=1;
+    int quantityNon_metal;
     public static Non_metals[] createNon_metals(){
         Non_metals[] arrayNotmetals = new Non_metals[5];
         String []nameFirstValence = {"H","Cl" , "Br" , "I"};

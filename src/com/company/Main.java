@@ -49,21 +49,17 @@ public class Main {
                 String secondInput = second.getText();
                 Metals tempMetal= Search.findeMetals(firstInput);
 
-                Material tempMaterial=Search.findeMaterial(secondInput);
+                Acid tempAcid=Search.findeAcid(secondInput);
                 Non_metals tempNon_metal=null;
-                if(tempMaterial ==null) tempNon_metal=Search.findeNon_metals(secondInput);
+                if(tempAcid == null) tempNon_metal=Search.findeNon_metals(secondInput);
 
-
-                if(tempMaterial!=null)
+                if(tempAcid!=null)
                 {
-                    rez.setText(Search.bild(tempMetal, tempMaterial));
+                    rez.setText(Search.bild(tempMetal, tempAcid));
                 }
                 else {
                    rez.setText(Search.bild(tempMetal,tempNon_metal));
                 }
-
-
-
             }
         });
 

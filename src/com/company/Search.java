@@ -5,7 +5,7 @@ import java.io.*;
  */
 public class Search {
     public static Metals[] metals = Metals.createMetals();
-    public static  Material[] materials = Material.createMaterial();
+    public static  Acid[] Acids = Acid.createAcid();
 
     public static  Non_metals[] non_metal = Non_metals.createNon_metals();
 
@@ -23,10 +23,11 @@ public class Search {
 
 
 
-    public static Material findeMaterial(String input){
-       Material temp= null;
-        for(int i=0;i<materials.length; i++){
-            if (input.equals(materials[i].itsName))temp=materials[i];
+    public static Acid findeAcid(String input){
+       Acid temp= null;
+        for(int i=0;i<Acids.length; i++) {
+            if (input.equals(Acids[i].itsName)) {
+                temp = Acids[i];} else {return temp;}
         }
         int n=0;
         if (input.substring(n, n + 1).equals(non_metal[0].itsName)) {
@@ -78,32 +79,50 @@ public class Search {
         }
         return null;
     }
+
     public static int gcd(int a,int b){
         return b == 0 ? a : gcd(b,a % b);
     }
     static int NOK(int a, int b){
         return a / gcd(a,b) * b;
     }
-    public static String bild(Metals metal, Material material)
+    public static String bild(Metals metal, Acid Acid)
     {
         String out = null;
         String before = null;
         String after = null;
-
-        int temp = NOK(metal.itsValence, material.itsValence);
+        String firstElementBefore , secondlementBefore ,firstElementAfter ,secondElementAfter  =null;
+        int temp = NOK(metal.itsValence, Acid.itsValence);
         int x1 = temp/metal.itsValence;
-        int y1 = temp/material.itsValence;
-        int A1 = temp = NOK(y1,material.quantityResidue);
-        int A2 = temp/y1;
-        int A3 = temp/2;
-        int A0 = A2*x1;
+        int y1 = temp/Acid.itsValence;
+        int A1=0;
+        int A2=0;
+        int A3=0;
+        int A0=0;
+        if (Acid.itsValence<2){
+            temp = NOK(y1,Acid.quantityResidue);
+            A1 = temp/Acid.quantityReductant;
+            A2 = temp/y1/x1;
+            A3 = temp/Acid.quantityResidue;
+            A0 = A2*x1;
+        }
+        else {
+            temp = NOK(Acid.quantityReductant,Acid.quantityResidue);
+            A1 = temp/Acid.quantityReductant;
+            A2 = temp/x1/Acid.quantityReductant;
+            A3 = temp/Acid.quantityResidue;
+            A0 = A2*x1;
+        }
+
+        firstElementBefore=A0+metal.itsName;
+        secondlementBefore= A1+Acid.itsName;
+        if(y1==1)firstElementAfter =A2+metal.itsName +x1 + Acid.MetalResidue + Acid.quantityOxidant +y1;
+        else{firstElementAfter =A2+metal.itsName +x1 +"("+Acid.MetalResidue + Acid.quantityOxidant+")" +y1;}
+        secondElementAfter =A3+Acid.Residue + Acid.quantityResidue;
 
 
-        before=A0+metal.itsName+" + "+A1+material.itsName+" = ";
-        after=A2+metal.itsName +x1 + material.MetalResidue + material.quantityOxidant +y1 +"+" +A3+
-                material.Residue + material.quantityResidue;
 
-        out=before+after;
+        out=firstElementBefore +" + "+secondlementBefore + " = " + firstElementAfter + "+" + secondElementAfter;
 
         return out.replaceAll("1","");
     }
@@ -113,17 +132,25 @@ public class Search {
         String before = null;
         String after = null;
 
+        String firstElementBefore , secondlementBefore ,firstElementAfter =null;
+
+
         int temp = NOK(metal.itsValence, non_metal.itsValence);
         int x1 = temp/metal.itsValence;
         int y1 = temp/non_metal.itsValence;
-        int A1 = temp = NOK(y1,non_metal.quantityNon_metal);
+        temp = NOK(y1,non_metal.quantityNon_metal);
+        int A1 = temp/non_metal.quantityNon_metal;
         int A2 = temp/y1;
         int A0 = A2*x1;
 
-        before=A0+metal.itsName+" + "+A1+non_metal.itsName+" = ";
-        after=A2+metal.itsName +x1 + non_metal.itsName +y1;
+        firstElementBefore=A0+metal.itsName;
+        secondlementBefore=A1+non_metal.itsName+non_metal.quantityNon_metal;
+        firstElementAfter = A2+metal.itsName +x1 + non_metal.itsName +y1;
 
-        out=before+after;
+
+
+
+        out=firstElementBefore +"+" + secondlementBefore + "=" + firstElementAfter;
 
         return out.replaceAll("1","");
     }
