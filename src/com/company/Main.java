@@ -47,6 +47,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 String firstInput = first.getText();
                 String secondInput = second.getText();
+
                 Metals tempMetal= Search.findeMetals(firstInput);
                 Non_metals tempNon_metal = null;
                 Acid  tempAcid= null;
@@ -60,15 +61,21 @@ public class Main {
                     rez.setText(Search.bild(tempMetal,tempNon_metal));
                 }
 
-                /*if(Search.findeAcid(secondInput) == null)
 
-                if(Search.findeAcid(secondInput)!=null)
-                {
-                    rez.setText(Search.bild(tempMetal, tempAcid));
+                /*Metals[] met = Metals.createMetals();
+                Non_metals[] non =Non_metals.createNon_metals();
+                Acid[] ac=Acid.createAcid();
+                for(int i=0; i<ac.length; i++){
+                    for (int j=0; j<met.length ; j++){
+                        System.out.println(met[j].itsName+ " + "+ ac[i].itsName+ "-> "+ Search.bild(met[j], Search.findeAcid(ac[i].itsName)));
+                    }
                 }
-                else {
-                   rez.setText(Search.bild(tempMetal,tempNon_metal));
+                for(int i=0; i<non.length; i++){
+                    for (int j=0; j<met.length ; j++){
+                        System.out.println(met[j].itsName+ " + "+ non[i].itsName+ "-> "+ Search.bild(met[j], Search.findeNon_metals(non[i].itsName+2)));
+                    }
                 }*/
+
             }
         });
 

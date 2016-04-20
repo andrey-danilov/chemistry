@@ -6,7 +6,6 @@ import java.io.*;
 public class Search {
     public static Metals[] metals = Metals.createMetals();
     public static  Acid[] Acids = Acid.createAcid();
-
     public static  Non_metals[] non_metal = Non_metals.createNon_metals();
 
 
@@ -91,29 +90,18 @@ public class Search {
     public static String bild(Metals metal, Acid Acid)
     {   if(metal.itsNumber >0) {
         String out = null;
-        String before = null;
-        String after = null;
         String firstElementBefore, secondlementBefore, firstElementAfter, secondElementAfter = null;
         int temp = NOK(metal.itsValence, Acid.itsValence);
         int x1 = temp / metal.itsValence;
         int y1 = temp / Acid.itsValence;
-        int A1 = 0;
-        int A2 = 0;
-        int A3 = 0;
-        int A0 = 0;
-        if (Acid.itsValence < 3) {
-            temp = NOK(y1, Acid.quantityResidue);
-            A1 = temp / Acid.quantityReductant;
-            A2 = A1 / y1;
-            A3 = temp / Acid.quantityResidue;
-            A0 = A2 * x1;
-        } else {
-            temp = NOK(Acid.quantityReductant, Acid.quantityResidue);
-            A1 = temp / Acid.quantityReductant;
-            A2 = A1 / y1;
-            A3 = temp / Acid.quantityResidue;
-            A0 = A2 * x1;
-        }
+        int A1,A2,A3,A0 = 0;
+        if (Acid.itsValence < 3)temp = NOK(y1, Acid.quantityResidue);
+        else { temp = NOK(Acid.quantityReductant, Acid.quantityResidue);}
+        A1 = temp / Acid.quantityReductant;
+        A2 = A1 / y1;
+        A3 = temp / Acid.quantityResidue;
+        A0 = A2 * x1;
+
 
         firstElementBefore = A0 + metal.itsName;
         secondlementBefore = A1 + Acid.itsName;
@@ -132,11 +120,8 @@ public class Search {
     public static String bild(Metals metal, Non_metals non_metal)
     {
         String out = null;
-        String before = null;
-        String after = null;
-
         String firstElementBefore , secondlementBefore ,firstElementAfter =null;
-
+        if(metal.itsName.equals("Fe")||metal.itsName.equals("Cr"))metal.itsValence=3;
 
         int temp = NOK(metal.itsValence, non_metal.itsValence);
         int x1 = temp/metal.itsValence;
