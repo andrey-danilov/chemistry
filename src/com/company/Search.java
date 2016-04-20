@@ -26,9 +26,10 @@ public class Search {
     public static Acid findeAcid(String input){
        Acid temp= null;
         for(int i=0;i<Acids.length; i++) {
-            if (input.equals(Acids[i].itsName)) {
-                temp = Acids[i];} else {return temp;}
+            if (input.equals(Acids[i].itsName))temp = Acids[i];
         }
+
+        if (temp!=null){
         int n=0;
         if (input.substring(n, n + 1).equals(non_metal[0].itsName)) {
             temp.Residue =input.substring(n, n + 1) ;
@@ -54,13 +55,14 @@ public class Search {
             temp.quantityOxidant=1;
             temp.MetalResidue=input;
         }
-        if(temp.itsName.equals("H2O"))temp.MetalResidue="OH";
+
 
         /*System.out.println(temp.Residue);
         System.out.println(temp.quantityReductant);
         System.out.println(temp.MetalResidue);
         System.out.println(temp.quantityOxidant);*/
-        return temp;
+        return temp;}
+        else{return null;}
     }
 
 
