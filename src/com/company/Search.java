@@ -89,44 +89,45 @@ public class Search {
         return a / gcd(a,b) * b;
     }
     public static String bild(Metals metal, Acid Acid)
-    {
+    {   if(metal.itsNumber >0) {
         String out = null;
         String before = null;
         String after = null;
-        String firstElementBefore , secondlementBefore ,firstElementAfter ,secondElementAfter  =null;
+        String firstElementBefore, secondlementBefore, firstElementAfter, secondElementAfter = null;
         int temp = NOK(metal.itsValence, Acid.itsValence);
-        int x1 = temp/metal.itsValence;
-        int y1 = temp/Acid.itsValence;
-        int A1=0;
-        int A2=0;
-        int A3=0;
-        int A0=0;
-        if (Acid.itsValence<2){
-            temp = NOK(y1,Acid.quantityResidue);
-            A1 = temp/Acid.quantityReductant;
-            A2 = temp/y1/x1;
-            A3 = temp/Acid.quantityResidue;
-            A0 = A2*x1;
+        int x1 = temp / metal.itsValence;
+        int y1 = temp / Acid.itsValence;
+        int A1 = 0;
+        int A2 = 0;
+        int A3 = 0;
+        int A0 = 0;
+        if (Acid.itsValence < 3) {
+            temp = NOK(y1, Acid.quantityResidue);
+            A1 = temp / Acid.quantityReductant;
+            A2 = A1 / y1;
+            A3 = temp / Acid.quantityResidue;
+            A0 = A2 * x1;
+        } else {
+            temp = NOK(Acid.quantityReductant, Acid.quantityResidue);
+            A1 = temp / Acid.quantityReductant;
+            A2 = A1 / y1;
+            A3 = temp / Acid.quantityResidue;
+            A0 = A2 * x1;
         }
+
+        firstElementBefore = A0 + metal.itsName;
+        secondlementBefore = A1 + Acid.itsName;
+        if (y1 == 1) firstElementAfter = A2 + metal.itsName + x1 + Acid.MetalResidue + Acid.quantityOxidant + y1;
         else {
-            temp = NOK(Acid.quantityReductant,Acid.quantityResidue);
-            A1 = temp/Acid.quantityReductant;
-            A2 = temp/x1/Acid.quantityReductant;
-            A3 = temp/Acid.quantityResidue;
-            A0 = A2*x1;
+            firstElementAfter = A2 + metal.itsName + x1 + "(" + Acid.MetalResidue + Acid.quantityOxidant + ")" + y1;
         }
-
-        firstElementBefore=A0+metal.itsName;
-        secondlementBefore= A1+Acid.itsName;
-        if(y1==1)firstElementAfter =A2+metal.itsName +x1 + Acid.MetalResidue + Acid.quantityOxidant +y1;
-        else{firstElementAfter =A2+metal.itsName +x1 +"("+Acid.MetalResidue + Acid.quantityOxidant+")" +y1;}
-        secondElementAfter =A3+Acid.Residue + Acid.quantityResidue;
+        secondElementAfter = A3 + Acid.Residue + Acid.quantityResidue;
 
 
+        out = firstElementBefore + " + " + secondlementBefore + " = " + firstElementAfter + "+" + secondElementAfter;
 
-        out=firstElementBefore +" + "+secondlementBefore + " = " + firstElementAfter + "+" + secondElementAfter;
-
-        return out.replaceAll("1","");
+        return out.replaceAll("1", "");
+    }else {return "it's metal dosen't responds with acid";}
     }
     public static String bild(Metals metal, Non_metals non_metal)
     {
