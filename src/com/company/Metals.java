@@ -7,6 +7,7 @@ public class Metals extends Abstract{
 
     int itsNumber;
     boolean itsDissolved;
+    int quantity;
 
     public static Metals[] createMetals(){
         Metals[] arrayMetals = new Metals[55];

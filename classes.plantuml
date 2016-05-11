@@ -1,0 +1,72 @@
+@startuml
+top to bottom direction
+skinparam headerFontSize 30
+skinparam headerFontStyle bold
+skinparam classAttributeIconSize 0
+scale 1.0
+package com.company {
+class com.company.Element {
+.. Fields  ..
+~arrayName : String[]
+~arrayQuality : int[]
+}
+class com.company.Metals <? extends Abstract>  {
+.. Fields  ..
+~itsDissolved : boolean
+~itsNumber : int
+.. Methods ..
+.. Static ..
++ {static} createMetals() : Metals[]
+}
+class com.company.Acid <? extends Abstract>  {
+.. Fields  ..
+~MetalResidue : String
+~Residue : String
+~quantityOxidant : int
+~quantityReductant : int
+~quantityResidue : int
+.. Methods ..
+.. Static ..
++ {static} createAcid() : Acid[]
+}
+class com.company.Non_metals <? extends Abstract>  {
+.. Fields  ..
+~quantityNon_metal : int
+.. Methods ..
+.. Static ..
++ {static} createNon_metals() : Non_metals[]
+}
+class com.company.Search {
+.. Fields  ..
+.. Methods ..
+.. Static ..
++ {static} Acids : Acid[]
++ {static} bild() : String
++ {static} bild() : String
++ {static} findeAcid() : Acid
++ {static} findeMetals() : Metals
++ {static} findeNon_metals() : Non_metals
++ {static} gcd() : int
++ {static} metals : Metals[]
++ {static} non_metal : Non_metals[]
+~ {static} NOK() : int
+}
+class com.company.Main {
+.. Methods ..
+.. Static ..
++ {static} main() : void
+}
+class com.company.Abstract {
+.. Fields  ..
+~itsName : String
+~itsValence : int
+}
+
+}
+com.company.Abstract <|-- com.company.Metals
+com.company.Abstract <|-- com.company.Acid
+com.company.Abstract <|-- com.company.Non_metals
+com.company.Search *-- "0..*" com.company.Metals
+com.company.Search *-- "0..*" com.company.Acid
+com.company.Search *-- "0..*" com.company.Non_metals
+@enduml

@@ -52,24 +52,28 @@ public class Main {
         craete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String firstInput = first.getText();
-                String secondInput = second.getText();
-
+                String firstInput = null;
+                String secondInput = null;
+                firstInput = first.getText();
+                secondInput = second.getText();
                 Metals tempMetal= null;
                 Non_metals tempNon_metal = null;
                 Acid  tempAcid= null;
 
-                if(tempMetal==null && tempNon_metal==null || tempAcid==null)rez.setText("You have entered incorrect data");
+
+
+                if(firstInput=="" && secondInput=="")rez.setText("You have entered incorrect data");
                 else{
-                    tempMetal=Search.findeMetals(firstInput);
-                    if(Search.findeAcid(secondInput)!=null){
-                        tempAcid= Search.findeAcid(secondInput);
-                        rez.setText(Search.bild(tempMetal, tempAcid));
-                    }
-                    else{
-                        tempNon_metal=Search.findeNon_metals(secondInput);
-                        rez.setText(Search.bild(tempMetal,tempNon_metal));
-                    }}
+                    tempMetal= Search.findeMetals(firstInput);
+                   if(Search.findeAcid(secondInput)!=null){
+                       tempAcid= Search.findeAcid(secondInput);
+                       rez.setText(Search.bild(tempMetal, tempAcid));
+                   }
+                   else{
+                       tempNon_metal=Search.findeNon_metals(secondInput);
+                       rez.setText(Search.bild(tempMetal,tempNon_metal));
+                   }
+                }
 
 
                 /*Metals[] met = Metals.createMetals();

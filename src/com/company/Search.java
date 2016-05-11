@@ -13,8 +13,9 @@ public class Search {
 
 
     public static Metals findeMetals(String input){
+        if(input==null)return null;
         for(int i=0;i<metals.length-1; i++){
-            if (input.equals(metals[i].itsName)) return metals[i];
+            if (input.equals(metals[i].itsName)){metals[i].quantity=1; return metals[i];}
         }
         return null;
     }
@@ -24,6 +25,7 @@ public class Search {
 
     public static Acid findeAcid(String input){
        Acid temp= null;
+        if(input==null)return null;
         for(int i=0;i<Acids.length; i++) {
             if (input.equals(Acids[i].itsName))temp = Acids[i];
         }
@@ -68,10 +70,9 @@ public class Search {
 
     public static Non_metals findeNon_metals(String input){
         Non_metals temp = null;
+        if(input==null)return null;
         for(int i=0;i<non_metal.length; i++){
-            if (input.substring(0, input.length()-1).equals(non_metal[i].itsName)){
-                temp=non_metal[i];
-            }
+            if (input.substring(0, input.length()-1).equals(non_metal[i].itsName))temp=non_metal[i];
         }
         if (input.substring(input.length()-1).matches("[-+]?\\d+")){
 
@@ -94,22 +95,23 @@ public class Search {
         int temp = NOK(metal.itsValence, Acid.itsValence);
         int x1 = temp / metal.itsValence;
         int y1 = temp / Acid.itsValence;
-        int A1,A2,A3,A0 = 0;
-        if (Acid.itsValence < 3)temp = NOK(y1, Acid.quantityResidue);
-        else { temp = NOK(Acid.quantityReductant, Acid.quantityResidue);}
-        A1 = temp / Acid.quantityReductant;
-        A2 = A1 / y1;
-        A3 = temp / Acid.quantityResidue;
-        A0 = A2 * x1;
+        int A3 = 0;
+        if (Acid.itsValence < 3)temp = NOK(y1, Acid.quantityHydrogen);
+        else { temp = NOK(Acid.quantityReductant, Acid.quantityHydrogen);}
+        A3 = temp / Acid.quantityHydrogen;
+        double[][]a=new double[3][4];
+        a[0][0]=metal.quantity; a[0][1]=0;  a[0][2]=-x1; a[0][3]=0;
+        a[1][0]=0;  a[1][1]=Acid.itsValence;  a[1][2]=0; a[1][3]=-Acid.quantityHydrogen;
+        a[2][0]=0;  a[2][1]=Acid.quantityResidue;  a[2][2]=-y1; a[2][3]=0;
+        int[] k = Matrix.coefficientsDecision(a,A3);
 
-
-        firstElementBefore = A0 + metal.itsName;
-        secondlementBefore = A1 + Acid.itsName;
-        if (y1 == 1) firstElementAfter = A2 + metal.itsName + x1 + Acid.MetalResidue + Acid.quantityOxidant + y1;
+        firstElementBefore = k[0] + metal.itsName;
+        secondlementBefore = k[1] + Acid.itsName;
+        if (y1 == 1) firstElementAfter = k[2] + metal.itsName + x1 + Acid.MetalResidue + Acid.quantityOxidant + y1;
         else {
-            firstElementAfter = A2 + metal.itsName + x1 + "(" + Acid.MetalResidue + Acid.quantityOxidant + ")" + y1;
+            firstElementAfter = k[2] + metal.itsName + x1 + "(" + Acid.MetalResidue + Acid.quantityOxidant + ")" + y1;
         }
-        secondElementAfter = A3 + Acid.Residue + Acid.quantityResidue;
+        secondElementAfter = A3 + Acid.Residue + Acid.quantityHydrogen;
 
 
         out = firstElementBefore + " + " + secondlementBefore + " = " + firstElementAfter + "+" + secondElementAfter;
@@ -127,12 +129,19 @@ public class Search {
         int x1 = temp/metal.itsValence;
         int y1 = temp/non_metal.itsValence;
         temp = NOK(y1,non_metal.quantityNon_metal);
-        int A1 = temp/non_metal.quantityNon_metal;
         int A2 = temp/y1;
-        int A0 = A2*x1;
 
-        firstElementBefore=A0+metal.itsName;
-        secondlementBefore=A1+non_metal.itsName+non_metal.quantityNon_metal;
+        double[][]a=new double[2][3];
+        a[0][0]=metal.quantity; a[0][1]=0;  a[0][2]=-x1;
+        a[1][0]=0;  a[1][1]=non_metal.quantityNon_metal;  a[1][2]=-y1;
+
+
+        int[] k = Matrix.coefficientsDecision(a, A2);
+
+
+
+        firstElementBefore=k[0]+metal.itsName;
+        secondlementBefore=k[1]+non_metal.itsName+non_metal.quantityNon_metal;
         firstElementAfter = A2+metal.itsName +x1 + non_metal.itsName +y1;
 
 

@@ -5,7 +5,8 @@ public class Acid extends Abstract{
     String Residue;
     int quantityOxidant;
     int quantityReductant;
-    int quantityResidue=2;
+    int quantityHydrogen=2;
+    int quantityResidue=1;
 
    public static Acid[] createAcid(){
        Acid[] arrayAcid = new Acid[5];
