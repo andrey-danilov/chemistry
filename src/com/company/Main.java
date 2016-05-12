@@ -62,7 +62,7 @@ public class Main {
 
 
 
-                if(firstInput=="" && secondInput=="")rez.setText("You have entered incorrect data");
+                if(firstInput.isEmpty() && secondInput.isEmpty())rez.setText("You have entered incorrect data");
                 else{
                     tempMetal= Search.findeMetals(firstInput);
                    if(Search.findeAcid(secondInput)!=null){
